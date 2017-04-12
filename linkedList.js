@@ -1,3 +1,5 @@
+// work in progress
+
 var linkedListBuilder = function(){
     var NoSuchElementException = "NoSuchElementException"
     
