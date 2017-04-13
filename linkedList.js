@@ -13,21 +13,9 @@ function assert(condition, message) {
 var linkedListBuilder = function(){
     "use strict";
     var head, tail;
-    
     head = null;
     tail = null;
-    var nodeBuilder = function(value, previous, next) {
-        var node = {
-            value : value,
-            previous : previous,
-            next : next
-        };
-        return node;
-    };
-    
-
     var linkedList = {};
-    
     linkedList.add = function(value) {
         var node = nodeBuilder(value, null, null);
         if (tail === null)
@@ -45,11 +33,14 @@ var linkedListBuilder = function(){
     
     linkedList.iterator = function() {
         var itr = {};
-        var current = (head === null ? {next: null} : {next: head});
+        var init = (head === null ? {next: null, previous :          null} : {next: head, previous : null});
+        var current = init;
         itr.hasNext = function() {
             return (current.next !== null);
         };
         itr.remove = function() {
+            if (current === init)
+                return false;
             if (current.previous === null)
             {
                 assert(current === head);
@@ -92,7 +83,13 @@ var linkedListBuilder = function(){
         while (itr.hasNext())
             consumerFunctional(itr.next());
     }
-    
-    
+    var nodeBuilder = function(value, previous, next) {
+        var node = {
+            value : value,
+            previous : previous,
+            next : next
+        };
+        return node;
+    };
     return linkedList;
 };

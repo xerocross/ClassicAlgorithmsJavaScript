@@ -94,5 +94,12 @@ describe("LinkedList :: iterator", function() {
         expect(itr.next()).toEqual(5);
         expect(itr.hasNext()).toBe(false);
     });
-         
+    it("should do nothing if .remove() and iterator is before head",function(){
+        linkedList.add(5).add(7);
+        var itr = linkedList.iterator();
+        itr.remove();
+        itr.remove();
+        expect(itr.next()).toEqual(5);
+        expect(itr.next()).toEqual(7);
+    });
 });
