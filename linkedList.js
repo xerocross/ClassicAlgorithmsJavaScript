@@ -1,7 +1,8 @@
 // work in progress
 
 var linkedListBuilder = function(){
-    var NoSuchElementException = "NoSuchElementException"
+    "use strict";
+    var NoSuchElementException = "NoSuchElementException";
     
     var nodeBuilder = function(value, previous, next) {
         var node = {
@@ -14,29 +15,29 @@ var linkedListBuilder = function(){
     
     var headSentinal = nodeBuilder(null, null, null);
     
-    var private = {
+    var pData = {
         head : headSentinal,
         tail : headSentinal
     };
     var linkedList = {};
     linkedList.add = function(value) {
-        var node = nodeBuilder(value, private.tail, null);
-        private.tail.next = node;
-        private.tail = node;
+        var node = nodeBuilder(value, pData.tail, null);
+        pData.tail.next = node;
+        pData.tail = node;
     };
     
-    linkedList.iterator = function(){
+    linkedList.iterator = function() {
         var itr = {};
-        var current = private.head;
-        itr.hasNext = function(){
-            return (current.next !== null)
-        }
-        itr.next = function(){
+        var current = pData.head;
+        itr.hasNext = function() {
+            return (current.next !== null);
+        };
+        itr.next = function() {
             current = current.next;
             return current.value;
-        }
+        };
         return itr;
-    }
+    };
     
     return linkedList;
 };
