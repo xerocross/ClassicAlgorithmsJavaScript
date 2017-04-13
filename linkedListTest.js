@@ -37,7 +37,8 @@ describe("LinkedList :: iterator", function() {
 
     it("should return false if no elements added and iterator.hasNext() called",function() {
         var itr = linkedList.iterator();
-        expect(itr.hasNext()).toBe(false);
+        var hasnext = itr.hasNext();
+        expect(hasnext).toBe(false);
     });
     it("should return true if element added and hasNext() called ",function() {
         linkedList.add(13);
@@ -58,4 +59,40 @@ describe("LinkedList :: iterator", function() {
         }
         expect(throwsError).toBe(true);
     });
+    it("should loop over all elements when you call .forEach(consumerFunctional)", function(){
+        linkedList.add(5).add(12).add(7);
+        var testNum = 0;
+        linkedList.forEach(x=>{testNum+=x;});
+        expect(testNum).toEqual(24);
+    });
+    it("should remove the element just pulled when we call iterator.remove if in the middle",function(){
+        linkedList.add(5).add(12).add(7);
+        var itr = linkedList.iterator();
+        itr.next();
+        itr.next();
+        itr.remove();
+        itr = linkedList.iterator();
+        expect(itr.next()).toEqual(5);
+        expect(itr.next()).toEqual(7);
+    });
+    it("should remove the element just pulled when we call iterator.remove if it is the head",function(){
+        linkedList.add(5).add(7);
+        var itr = linkedList.iterator();
+        itr.next();
+        itr.remove();
+        itr = linkedList.iterator();
+        expect(itr.next()).toEqual(7);
+        expect(itr.hasNext()).toBe(false);
+    });
+    it("should remove the element just pulled when we call iterator.remove if it is the tail",function(){
+        linkedList.add(5).add(7);
+        var itr = linkedList.iterator();
+        itr.next();
+        itr.next();
+        itr.remove();
+        itr = linkedList.iterator();
+        expect(itr.next()).toEqual(5);
+        expect(itr.hasNext()).toBe(false);
+    });
+         
 });
